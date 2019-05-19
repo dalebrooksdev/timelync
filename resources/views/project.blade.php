@@ -136,7 +136,7 @@
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">Enter manual task</span>
+          <span class="card-title">Enter a manual task</span>
           <div class="row mb-0">
             <div class="input-field col s12">
               <input type="text" class="datepicker" id="taskDate">
@@ -153,7 +153,7 @@
           </div>
         </div>
         <div class="card-action">
-          <a class="btn-floating btn-flat btn-large waves-effect waves-light light-blue darken-1"><i
+          <a class="btn-floating btn-large waves-effect waves-light light-blue darken-1"><i
               class="large material-icons">add</i></a>
         </div>
       </div>

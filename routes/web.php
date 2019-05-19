@@ -19,10 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/dashboard', 'ProjectsController@index')->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-Route::get('/project', function () {
-    return view('project');
-});
+Route::get('/projects/create', 'ProjectsController@create')->name('createProject');
+
+Route::post('/projects', 'ProjectsController@store')->name('storeProject');
+
