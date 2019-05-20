@@ -35,6 +35,18 @@ class ProjectsController extends Controller
         return view('dashboard', compact('userProjects'));
     }
 
+    public function show($projectid)
+    {
+        $user = User::find(Auth::user()->id);
+        $userProject = $user->projects()->find($projectid);
+        $username = $user->username;
+        if ($userProject){
+            return view('project', compact('userProject'));
+        } else {
+            abort(403);
+        }
+    }
+
     public function create()
     {
         return view('createProject');

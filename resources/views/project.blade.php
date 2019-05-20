@@ -100,7 +100,7 @@
 
 @section('navExtention')
 @parent
-<span class="nav-title ml-4">Project Title</span>
+<span class="nav-title ml-4">{{$userProject->title}}</span>
 <ul class="tabs tabs-transparent" id="projectTabs">
   <li class="tab active"><a href="#timeTracker">Time Tracker</a></li>
   <li class="tab disabled"><a href="#timeTracker2">Invoice</a></li>

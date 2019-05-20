@@ -11,16 +11,16 @@
 @parent
 <div class="m-4">
     <h4>Projects</h4>
-@foreach ($userProjects as $project)
+    @foreach ($userProjects as $project)
     <div class="card">
         <div class="card-image">
             <img src="https://picsum.photos/200">
             <span class="card-title">{{ $project->title }}</span>
-            <a href="{{ url('/project') }}" class="btn-floating halfway-fab waves-effect waves-light red"><i
+            <a href="/projects/{{$project->id}}" class="btn-floating halfway-fab waves-effect waves-light red"><i
                     class="material-icons">remove_red_eye</i></a>
         </div>
         <div class="card-content">
-        <p class="pb-4">{{ $project->description }}</p>
+            <p class="pb-4">{{ $project->description }}</p>
             <span class="mb-2"><b>Time spent:</b> 4hrs 2min 20sec</span>
             <br />
             <span class="mb-2"><b>Billable:</b> $1904.43</span>
@@ -42,7 +42,7 @@
 
         </div>
     </div>
-@endforeach
+    @endforeach
 </div>
 
 @stop
