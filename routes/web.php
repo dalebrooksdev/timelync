@@ -27,3 +27,6 @@ Route::get('/projects/{projectid}', 'ProjectsController@show')->name('showProjec
 
 Route::post('/projects', 'ProjectsController@store')->name('storeProject');
 
+Route::post('/timestamps', 'TimestampsController@store')->name('storeTimestamp');
+
+

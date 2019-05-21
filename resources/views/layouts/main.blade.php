@@ -8,29 +8,42 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <body>
-<nav class="nav-extended">
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Timeli</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <a href="/dashboard" class="brand-logo">Timeli</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-    <li><a href="badges.html">Invoicing</a></li>
-    <li><a href="collapsible.html">Account</a></li>
-        </ul>
-    </div>
-    <div class="nav-content">
+                <li><a href="badges.html">Invoicing</a></li>
+                <li><a href="collapsible.html">Account</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a></li>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+            </ul>
+        </div>
+        <div class="nav-content">
             @section('navExtention')
             @show
-    </div>
-</nav>
+        </div>
+    </nav>
 
-<ul class="sidenav" id="mobile-demo">
-    <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-    <li><a href="badges.html">Invoicing</a></li>
-    <li><a href="collapsible.html">Account</a></li>
-</ul>
-@section('mainContent')
-@show
+    <ul class="sidenav" id="mobile-demo">
+        <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+        <li><a href="badges.html">Invoicing</a></li>
+        <li><a href="collapsible.html">Account</a></li>
+        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a></li>
+    </ul>
+    @section('mainContent')
+    @show
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
