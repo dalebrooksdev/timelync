@@ -10,7 +10,7 @@
 <body>
     <nav class="nav-extended">
         <div class="nav-wrapper">
-            <a href="/dashboard" class="brand-logo">Timeli</a>
+        <a href="/dashboard" class="brand-logo"><img class="ml-4" src="{{ asset('/images/timeLyncLogo.png') }}" alt="TimeLync" width="200px;"></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
