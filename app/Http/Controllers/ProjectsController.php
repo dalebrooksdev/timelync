@@ -40,8 +40,12 @@ class ProjectsController extends Controller
         $user = User::find(Auth::user()->id);
         $userProject = $user->projects()->find($projectid);
         $username = $user->username;
+        foreach ($userProject->timestamp as $timestamp){
+            $inProgressTask = $timestamp->getInProgress($userProject->id);
+        }
+        
         if ($userProject){
-            return view('project', compact('userProject'));
+            return view('project', compact('userProject', 'inProgressTask'));
         } else {
             abort(403);
         }

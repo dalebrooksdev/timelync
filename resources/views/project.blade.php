@@ -112,9 +112,34 @@
 @section('mainContent')
 @parent
 
+
 <div id="timeTracker" class="col s12">
     <div class="row p-4">
         <div class="col s12 m6">
+            @if($inProgressTask)
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">You are currently working on a task.</span>
+                    <div class="row mb-0">
+                        @foreach($inProgressTask as $task)
+                            <b>Description: </b>{{$task->description}}
+                        @endforeach
+                    </div>
+                </div>
+                <div class="card-action">
+                    <form id="endTrackedTaskForm" action="/timestamps" method="POST">
+                        @csrf
+                        @foreach($inProgressTask as $task)
+                            <input name="timestamp_id" type="hidden" value="{{$task->id}}">  
+                        @endforeach
+                        <input name="task_type" type="hidden" value="tracked_end">  
+                        <input name="project_id" value="{{$userProject->id}}" type="hidden">
+                    </form>      
+                    <button class="btn-floating btn-large waves-effect waves-light red darken-1" type="submit" form="endTrackedTaskForm" value="Submit"><i
+                            class="large material-icons">stop</i></button>
+                </div>
+            </div>
+            @else
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Start a new task</span>
@@ -122,7 +147,7 @@
                     <form id="createTrackedTaskForm" action="/timestamps" method="POST">
                         @csrf
                         <input name="task_type" type="hidden" value="tracked">  
-                            <input name="project_id" value="{{$userProject->id}}" type="hidden">
+                        <input name="project_id" value="{{$userProject->id}}" type="hidden">
 
                         <div class="input-field col s12">
                             <input name="description" id="taskDescription" type="text" class="validate">
@@ -138,6 +163,8 @@
                             class="large material-icons">play_arrow</i></button>
                 </div>
             </div>
+            @endif
+
         </div>
 
         <div class="col s12 m6">

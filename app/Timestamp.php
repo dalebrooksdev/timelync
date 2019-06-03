@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Timestamp extends Model
@@ -20,8 +21,17 @@ class Timestamp extends Model
         return $this->belongsTo('App\Project');
     }
 
-    public function totalTimeSpent()
+    public function getInProgress($project_id)
     {
+        $inProgressTask = DB::table('timestamps')
+                    ->whereNull('end_time')
+                    ->where('project_id', $project_id)
+                    ->get();
 
+        if(!$inProgressTask->isEmpty()){
+            return $inProgressTask;
+        } else {
+            return null;
+        }
     }
 }
