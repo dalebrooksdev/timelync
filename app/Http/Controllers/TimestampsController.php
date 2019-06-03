@@ -15,15 +15,41 @@ class TimestampsController extends Controller
         $user = Auth::user();
         $timestamp = new Timestamp;
 
+        $fieldsToValidate = array(
+            'project_id' => 'required',
+            'description' => 'required',
+        );
+
+        if ($request->task_type !== 'tracked'){
+            $fieldsToValidate['start_date'] = 'required';
+            $fieldsToValidate['start_time'] = 'required';
+            $fieldsToValidate['end_date'] = 'required';
+            $fieldsToValidate['end_time'] = 'required';
+        }
+
+        $request->validate($fieldsToValidate);
+
         $timestamp->project_id = $request->project_id;
         $timestamp->description = $request->description;
-        $timestamp->start_time = $request->start_time;
         $timestamp->end_time = $request->end_time;
-        $timestamp->start_date = $request->start_date;
         $timestamp->end_date = $request->end_date;
 
+        if ($request->task_type === 'tracked'){
+            $timestamp->start_time = date('H:i:s');
+            $timestamp->start_date = date('Y-m-d');
+        } else {
+            $timestamp->start_time = $request->start_time;
+            $timestamp->start_date = $request->start_date;
+        }
         $timestamp->save();
 
+        return redirect()->route('dashboard');
+    }
+
+    public function destroy(Request $request)
+    {
+        $timestamp = Timestamp::find($request->timestamp_to_delete);
+        $timestamp->delete();
         return redirect()->route('dashboard');
     }
 }

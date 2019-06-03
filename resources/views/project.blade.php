@@ -1,5 +1,5 @@
 <style>
-    HTML CSS Result EDIT ON .timeline {
+    .timeline {
         position: relative;
     }
 
@@ -102,9 +102,9 @@
 @parent
 <span class="nav-title ml-4">{{$userProject->title}}</span>
 <ul class="tabs tabs-transparent" id="projectTabs">
-    <li class="tab active"><a href="#timeTracker">Time Tracker</a></li>
+    <li class="tab"><a href="#timeTracker">Time Tracker</a></li>
     <li class="tab disabled"><a href="#timeTracker2">Invoice</a></li>
-    <li class="tab disabled"><a href="#timeTracker2">Settings</a></li>
+    <li class="tab"><a href="#projectSettings">Settings</a></li>
 
 </ul>
 
@@ -113,22 +113,29 @@
 @parent
 
 <div id="timeTracker" class="col s12">
-
     <div class="row p-4">
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Start a new task</span>
                     <div class="row mb-0">
+                    <form id="createTrackedTaskForm" action="/timestamps" method="POST">
+                        @csrf
+                        <input name="task_type" type="hidden" value="tracked">  
+                            <input name="project_id" value="{{$userProject->id}}" type="hidden">
+
                         <div class="input-field col s12">
-                            <input id="taskDescription" type="text" class="validate">
+                            <input name="description" id="taskDescription" type="text" class="validate">
                             <label class="active" for="taskDescription">What are you working on?</label>
                         </div>
+
+                    </form>
                     </div>
                 </div>
                 <div class="card-action">
-                    <a class="btn-floating btn-large waves-effect waves-light light-blue darken-1"><i
-                            class="large material-icons">play_arrow</i></a>
+                          
+                    <button class="btn-floating btn-large waves-effect waves-light light-blue darken-1" type="submit" form="createTrackedTaskForm" value="Submit"><i
+                            class="large material-icons">play_arrow</i></button>
                 </div>
             </div>
         </div>
@@ -138,8 +145,25 @@
                 <div class="card-content">
                     <span class="card-title">Enter a manual task</span>
                     <div class="row mb-0">
+                        @if ($errors->any())
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="card-panel red">
+                        <span class="white-text">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                @endif
                         <form id="createManualTaskForm" class="col s12" action="/timestamps" method="POST">
                             @csrf
+                            <div class="input-field col s12">
+                                <input id="taskDescriptionManual" type="text" name="description" class="validate">
+                                <label class="active" for="taskDescriptionManual">What did you work on?</label>
+                            </div>
                             <div class="input-field col s6">
                                 <input type="text" class="datepicker" name="start_date"id="startDate">
                                 <label class="active" for="startDate">Start date</label>
@@ -173,60 +197,48 @@
             <h3 class="center-align">Timeline</h3>
             <div class="container">
                 <div class="timeline">
+                @foreach ($userProject->timestamp as $timestamp)
                     <div class="timeline-event">
                         <div class="card timeline-content">
                             <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Tile<i
-                                        class="material-icons right">more_vert</i></span>
-                                <p>Content <a href="#">This is a link</a></p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Card Title<i
-                                        class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked
-                                    on.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-badge blue white-text"><i class="material-icons">language</i></div>
-                    </div>
-                    <div class="timeline-event">
-                        <div class="card timeline-content">
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Tile<i
-                                        class="material-icons right">more_vert</i></span>
-                                <p>Content <a href="#">This is a link</a></p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Card Title<i
-                                        class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked
-                                    on.</p>
+                                <span class="card-title activator grey-text text-darken-4">{{$timestamp->start_date}} 
+                                    <form id="deleteTimestampForm-{{$timestamp->id}}" action="/timestamps" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input name="timestamp_to_delete" type="hidden" value="{{$timestamp->id}}">
+                                    </form>
+                                    <button class="float-right" type="submit" form="deleteTimestampForm-{{$timestamp->id}}" value="Submit">
+                                    <i class="material-icons right">delete</i></button>
+                                </span>
+                                
+                                <p>{{$timestamp->description}}</p>
+                                <p><b>Start Time:</b> {{$timestamp->start_time}} </p>
+                                <p><b>End Time:</b> {{$timestamp->end_time}} </p>
+
                             </div>
                         </div>
-                        <div class="timeline-badge red white-text"><i class="material-icons">work</i></div>
+                        <div class="timeline-badge blue white-text"><i class="material-icons">assignment</i></div>
                     </div>
-                    <div class="timeline-event">
-                        <div class="card timeline-content">
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Tile<i
-                                        class="material-icons right">more_vert</i></span>
-                                <p>Content <a href="#">This is a link</a></p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Card Title<i
-                                        class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked
-                                    on.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-badge green white-text"><i class="material-icons">person</i></div>
-                    </div>
+                @endforeach
                 </div>
             </div>
         </div>
 
     </div>
-
+</div>
+<div id="projectSettings" class="col s12">
+    <div class="row p-4">
+        <h4>Project Settings</h4>
+        <div class="p-4">
+        <form id="deleteProjectForm-{{$userProject->id}}" action="/projects" method="POST">
+            @csrf
+            @method('DELETE')
+            <input name="project_to_delete" type="hidden" value="{{$userProject->id}}">     
+            <button class="waves-effect waves-light btn red" type="submit" form="deleteProjectForm-{{$userProject->id}}" value="Submit">Delete this project</button>
+        </form>
+    </div>
+    </div>
+</div>
     @stop
 
     <script>

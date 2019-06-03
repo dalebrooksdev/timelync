@@ -57,16 +57,27 @@ class ProjectsController extends Controller
         $user = Auth::user();
         $project = new Project;
 
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'rate_type' => 'required',
+            'rate_amount' => 'required'
+        ]);
         $project->title = $request->title;
         $project->description = $request->description;
         $project->user_id = $user->id;
         $project->rate_type = $request->rate_type;
         $project->rate_amount = $request->rate_amount;
-        $project->title = $request->title;
 
         $project->save();
 
         return redirect()->route('dashboard');
     }
-}
 
+    public function destroy(Request $request)
+    {
+        $project = Project::find($request->project_to_delete);
+        $project->delete();
+        return redirect()->route('dashboard');
+    }
+}

@@ -19,4 +19,9 @@ class Timestamp extends Model
     {
         return $this->belongsTo('App\Project');
     }
+
+    public function totalTimeSpent()
+    {
+
+    }
 }

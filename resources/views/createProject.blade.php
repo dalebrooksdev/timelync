@@ -6,13 +6,25 @@
 @stop
 @section('mainContent')
 @parent
-
 <div id="createProject" class="col s12 m-8">
     <div class="row">
-
         <form id="createProjectForm" class="col s12" action="/projects" method="POST">
             @csrf
-            <div class="col s12 l6">
+
+            <div class="col s12 l6 justify-center">
+                @if ($errors->any())
+                  <div class="row">
+                    <div class="col s12 m5">
+                      <div class="card-panel red">
+                        <span class="white-text">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                @endif
                 <h5>Project Info</h5>
 
                 <div class="input-field col s12">
@@ -43,31 +55,10 @@
                 </div>
 
             </div>
-            <div class="col s12 l6">
 
-                <h5>Client Info</h5>
-                <div class="input-field col s6">
-                    <input id="clientFirstName" type="text" class="validate">
-                    <label for="clientFirstName">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="clientLastName" type="text" class="validate">
-                    <label for="clientLastName">Last Name</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <input id="clientEmailAddress" type="email" class="validate">
-                    <label for="clientEmailAddress">Email Address</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="clientPhoneNumber" type="text" class="validate">
-                    <label for="clientPhoneNumber">Phone Number</label>
-                </div>
-            </div>
         </form>
         <br/>
         <button type="submit" form="createProjectForm" value="Submit" class="waves-effect waves-light btn w-full sm:w-full md:w-full lg:w-1/2">Create</button>
-
     </div>
 </div>
 

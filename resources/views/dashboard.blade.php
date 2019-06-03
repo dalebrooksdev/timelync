@@ -17,8 +17,8 @@
         <div class="card ">
             <div class="card-image">
                 <img src="https://picsum.photos/200">
-                <span class="card-title">{{ $project->title }}</span>
-                <a href="/projects/{{$project->id}}" class="btn-floating halfway-fab waves-effect waves-light red"><i
+                <span class="card-title bg-black">{{ $project->title }}</span>
+                <a href="/projects/{{$project->id}}" class="btn-floating halfway-fab waves-effect waves-light red btn-large"><i
                         class="material-icons">remove_red_eye</i></a>
             </div>
             <div class="card-content">
@@ -28,18 +28,7 @@
                 <span class="mb-2"><b>Billable:</b> $1904.43</span>
                 <br />
                 <div class="mt-4">
-                    <div class="chip">
-                        Personal
-                        <i class="close material-icons">close</i>
-                    </div>
-                    <div class="chip">
-                        Jane Doe
-                        <i class="close material-icons">close</i>
-                    </div>
-                    <div class="chip">
-                        Commerce
-                        <i class="close material-icons">close</i>
-                    </div>
+
                 </div>
 
             </div>
