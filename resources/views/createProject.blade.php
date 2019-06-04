@@ -13,19 +13,19 @@
 
             <div class="col s12 l6 justify-center">
                 @if ($errors->any())
-                  <div class="row">
+                <div class="row">
                     <div class="col s12 m5">
-                      <div class="card-panel red">
-                        <span class="white-text">
-                            @foreach ($errors->all() as $error)
+                        <div class="card-panel red">
+                            <span class="white-text">
+                                @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
-                            @endforeach
-                        </span>
-                      </div>
+                                @endforeach
+                            </span>
+                        </div>
                     </div>
-                  </div>
+                </div>
                 @endif
-                
+
                 <h5>Project Info</h5>
 
                 <div class="input-field col s12">
@@ -33,9 +33,9 @@
                     <label for="projectTitle">Project Title</label>
                 </div>
                 <div class="input-field col s12">
-                        <textarea name="description" id="projectDescription" class="materialize-textarea"></textarea>
-                        <label for="projectDescription">Description</label>
-                      </div>
+                    <textarea name="description" id="projectDescription" class="materialize-textarea"></textarea>
+                    <label for="projectDescription">Description</label>
+                </div>
                 <div class="input-field col s6">
                     <select name="rate_type">
                         <option value="" disabled selected>Select rate type</option>
@@ -53,8 +53,9 @@
             </div>
 
         </form>
-        <br/>
-        <button type="submit" form="createProjectForm" value="Submit" class="waves-effect waves-light btn w-full sm:w-full md:w-full lg:w-1/2">Create</button>
+        <br />
+        <button type="submit" form="createProjectForm" value="Submit"
+            class="waves-effect waves-light btn w-full sm:w-full md:w-full lg:w-1/2">Create</button>
     </div>
 </div>
 

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Auth;
-
 use App\Project;
 use App\User;
+use Auth;
+use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
-        /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -40,18 +38,18 @@ class ProjectsController extends Controller
         $user = User::find(Auth::user()->id);
         $userProject = $user->projects()->find($projectid);
         $username = $user->username;
-        
-        if ($userProject){
-            if ($userProject->timestamp->first()){
-            foreach ($userProject->timestamp as $timestamp){
-                $inProgressTask = $timestamp->getInProgress($userProject->id);
-                $totalTimeSpent = $timestamp->getTotalTimeSpent($userProject->id);
+
+        if ($userProject) {
+            if ($userProject->timestamp->first()) {
+                foreach ($userProject->timestamp as $timestamp) {
+                    $inProgressTask = $timestamp->getInProgress($userProject->id);
+                    $totalTimeSpent = $timestamp->getTotalTimeSpent($userProject->id);
+                }
+            } else {
+                $inProgressTask = null;
+                $totalTimeSpent = null;
             }
-        } else {
-            $inProgressTask = null;
-            $totalTimeSpent = null;
-        }
-            return view('project', compact('userProject', 'inProgressTask','totalTimeSpent'));
+            return view('project', compact('userProject', 'inProgressTask', 'totalTimeSpent'));
         } else {
             abort(403);
         }
@@ -71,7 +69,7 @@ class ProjectsController extends Controller
             'title' => 'required',
             'description' => 'required',
             'rate_type' => 'required',
-            'rate_amount' => 'required'
+            'rate_amount' => 'required',
         ]);
         $project->title = $request->title;
         $project->description = $request->description;

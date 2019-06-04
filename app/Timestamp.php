@@ -4,8 +4,8 @@ namespace App;
 
 use App\Project;
 use DateTime;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Timestamp extends Model
 {
@@ -26,11 +26,11 @@ class Timestamp extends Model
     public function getInProgress($project_id)
     {
         $inProgressTask = DB::table('timestamps')
-                    ->whereNull('end_time')
-                    ->where('project_id', $project_id)
-                    ->get();
+            ->whereNull('end_time')
+            ->where('project_id', $project_id)
+            ->get();
 
-        if(!$inProgressTask->isEmpty()){
+        if (!$inProgressTask->isEmpty()) {
             return $inProgressTask;
         } else {
             return $inProgressTask = null;
@@ -50,15 +50,14 @@ class Timestamp extends Model
     {
         $project = Project::find($project_id);
 
-        
-            foreach($project->timestamp as $timestamp){
-                $startDateTime = new DateTime($timestamp->start_date . " " . $timestamp->start_time);
-                $endDateTime = new DateTime($timestamp->end_date . " " . $timestamp->end_time);
-                $intervals[] = $startDateTime->diff($endDateTime);
-            }
+        foreach ($project->timestamp as $timestamp) {
+            $startDateTime = new DateTime($timestamp->start_date . " " . $timestamp->start_time);
+            $endDateTime = new DateTime($timestamp->end_date . " " . $timestamp->end_time);
+            $intervals[] = $startDateTime->diff($endDateTime);
+        }
         $startDateTime = new DateTime('00:00');
         $endDateTime = clone $startDateTime;
-        foreach ($intervals as $interval){
+        foreach ($intervals as $interval) {
             $startDateTime->add($interval);
         }
         $intervalTotal = $endDateTime->diff($startDateTime);
@@ -68,17 +67,17 @@ class Timestamp extends Model
     public function getTotalCharges($project_id)
     {
         $project = Project::find($project_id);
-        if ($project->rate_type === 2){
+        if ($project->rate_type === 2) {
             return $project->rate_amount;
         } else {
-            foreach($project->timestamp as $timestamp){
+            foreach ($project->timestamp as $timestamp) {
                 $startTimestamp = new DateTime($timestamp->start_date . " " . $timestamp->start_time);
                 $endTimestamp = new DateTime($timestamp->end_date . " " . $timestamp->end_time);
-                $intervals[] = $endTimestamp->getTimestamp()-$startTimestamp->getTimestamp();
+                $intervals[] = $endTimestamp->getTimestamp() - $startTimestamp->getTimestamp();
             }
             $totalSeconds = array_sum($intervals);
 
-            return "$" .round(($project->rate_amount / 3600) * $totalSeconds, 2);
+            return "$" . round(($project->rate_amount / 3600) * $totalSeconds, 2);
         }
     }
 }

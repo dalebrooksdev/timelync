@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
 use App\Timestamp;
-
+use App\User;
 use Auth;
+use Illuminate\Http\Request;
 
 class TimestampsController extends Controller
 {
@@ -19,13 +18,13 @@ class TimestampsController extends Controller
             'project_id' => 'required',
         );
 
-        if ($request->task_type !== 'tracked' && $request->task_type !== 'tracked_end'){
+        if ($request->task_type !== 'tracked' && $request->task_type !== 'tracked_end') {
             $fieldsToValidate['start_date'] = 'required';
             $fieldsToValidate['start_time'] = 'required';
             $fieldsToValidate['end_date'] = 'required';
             $fieldsToValidate['end_time'] = 'required';
         }
-        if ($request->task_type !== 'tracked_end'){
+        if ($request->task_type !== 'tracked_end') {
             $fieldsToValidate['description'] = 'required';
         }
 
@@ -33,22 +32,21 @@ class TimestampsController extends Controller
 
         $timestamp->project_id = $request->project_id;
         $timestamp->description = $request->description;
-        
 
-        if ($request->task_type === 'tracked'){
+        if ($request->task_type === 'tracked') {
             $timestamp->start_time = date('H:i:s');
             $timestamp->start_date = date('Y-m-d');
         } elseif ($request->task_type === 'tracked_end') {
             $timestamp = Timestamp::find($request->timestamp_id);
             $timestamp->end_time = date('H:i:s');
             $timestamp->end_date = date('Y-m-d');
-        }else {
+        } else {
             $timestamp->start_time = $request->start_time;
             $timestamp->start_date = $request->start_date;
             $timestamp->end_time = $request->end_time;
             $timestamp->end_date = $request->end_date;
         }
-        
+
         $timestamp->save();
 
         return redirect()->back();
