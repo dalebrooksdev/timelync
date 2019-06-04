@@ -221,7 +221,10 @@
         </div>
 
         <div class="col s12">
-            <h3 class="center-align">Timeline</h3>
+            <div class="center-align">
+            <h3 >Timeline</h3>
+            <b>Current Time Spent: </b>{{$totalTimeSpent}}
+        </div>
             <div class="container">
                 <div class="timeline">
                 @foreach ($userProject->timestamp as $timestamp)

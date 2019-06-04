@@ -42,10 +42,11 @@ class ProjectsController extends Controller
         $username = $user->username;
         foreach ($userProject->timestamp as $timestamp){
             $inProgressTask = $timestamp->getInProgress($userProject->id);
+            $totalTimeSpent = $timestamp->getTotalTimeSpent($userProject->id);
         }
         
         if ($userProject){
-            return view('project', compact('userProject', 'inProgressTask'));
+            return view('project', compact('userProject', 'inProgressTask','totalTimeSpent'));
         } else {
             abort(403);
         }

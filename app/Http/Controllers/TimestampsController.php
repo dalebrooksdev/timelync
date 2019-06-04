@@ -24,9 +24,9 @@ class TimestampsController extends Controller
             $fieldsToValidate['start_time'] = 'required';
             $fieldsToValidate['end_date'] = 'required';
             $fieldsToValidate['end_time'] = 'required';
-            if ($request->task_type !== 'tracked_end'){
-                $fieldsToValidate['description'] = 'required';
-            }
+        }
+        if ($request->task_type !== 'tracked_end'){
+            $fieldsToValidate['description'] = 'required';
         }
 
         $request->validate($fieldsToValidate);
@@ -50,7 +50,6 @@ class TimestampsController extends Controller
         }
         
         $timestamp->save();
-        
 
         return redirect()->route('dashboard');
     }
