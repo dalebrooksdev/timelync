@@ -11,10 +11,9 @@
 @parent
 <div>
     <h4>Projects</h4>
-    <div class="flex flex-wrap justify-center">
+    <div class="flex justify-stretch">
         @foreach ($userProjects as $project)
-        <div class="m-4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-        <div class="card ">
+        <div class="card m-4 w-full">
             <div class="card-image">
                 <img src="https://picsum.photos/200">
                 <span class="card-title bg-black">{{ $project->title }}</span>
@@ -23,17 +22,22 @@
             </div>
             <div class="card-content">
                 <p class="pb-4">{{ $project->description }}</p>
-                <span class="mb-2"><b>Time spent:</b> 4hrs 2min 20sec</span>
+                @if ($project->timestamp->first())
+                <span class="mb-2"><b>Time spent:</b> {{$project->timestamp->first()->getTotalTimeSpent($project->id)}}</span>
+                @else 
+                <span class="mb-2"><b>Time spent:</b> Not started</span>
+                @endif
                 <br />
-                <span class="mb-2"><b>Billable:</b> $1904.43</span>
+                @if ($project->timestamp->first())
+                <span class="mb-2"><b>Billable:</b> {{$project->timestamp->first()->getTotalCharges($project->id)}}</span>
+                @else 
+                <span class="mb-2"><b>Billable:</b> $0.00</span>
+                @endif
                 <br />
                 <div class="mt-4">
-
                 </div>
-
             </div>
         </div>
-    </div>
         @endforeach
     </div>
 </div>

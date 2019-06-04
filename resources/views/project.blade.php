@@ -224,6 +224,10 @@
             <div class="center-align">
             <h3 >Timeline</h3>
             <b>Current Time Spent: </b>{{$totalTimeSpent}}
+            <br/>
+            @if ($userProject->timestamp->first())
+            <b>Billable: </b> {{$userProject->timestamp->first()->getTotalCharges($userProject->id)}}
+            @endif
         </div>
             <div class="container">
                 <div class="timeline">

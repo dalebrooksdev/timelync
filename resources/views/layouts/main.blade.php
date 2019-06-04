@@ -15,9 +15,7 @@
         <a href="/dashboard" class="brand-logo"><img class="ml-4" src="{{ asset('/images/timeLyncLogo.png') }}" alt="TimeLync" width="200px;"></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                <li><a href="badges.html">Invoicing</a></li>
-                <li><a href="collapsible.html">Account</a></li>
+                <li class=""><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                 <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
