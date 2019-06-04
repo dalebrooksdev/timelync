@@ -25,6 +25,7 @@
                     </div>
                   </div>
                 @endif
+                
                 <h5>Project Info</h5>
 
                 <div class="input-field col s12">
@@ -47,11 +48,6 @@
                 <div class="input-field col s6">
                     <input name="rate_amount" id="projectRateAmount" type="number" class="validate">
                     <label for="projectRateAmount">Rate Amount</label>
-                </div>
-                <div class="input-field col s12">
-                    <div class="chips">
-                        <input name="tags" placeholder="Tags" class="custom-class" id="projectTags">
-                    </div>
                 </div>
 
             </div>

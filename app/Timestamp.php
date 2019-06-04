@@ -37,6 +37,15 @@ class Timestamp extends Model
         }
     }
 
+    public function getDuration($timestamp_id)
+    {
+        $timestamp = Timestamp::find($timestamp_id);
+        $startDateTime = new DateTime($timestamp->start_date . " " . $timestamp->start_time);
+        $endDateTime = new DateTime($timestamp->end_date . " " . $timestamp->end_time);
+        $interval = $startDateTime->diff($endDateTime);
+        return $interval->format('%a day(s) %h hour(s) %i minute(s) %s second(s)');
+    }
+
     public function getTotalTimeSpent($project_id)
     {
         $project = Project::find($project_id);
@@ -73,7 +82,3 @@ class Timestamp extends Model
         }
     }
 }
-$date = new DateTime( '2009-10-05 18:07:13' );
-$date2 = new DateTime( '2009-10-05 18:11:08' );
-
-$diff = $date2->getTimestamp() - $date->getTimestamp();

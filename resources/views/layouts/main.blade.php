@@ -8,7 +8,14 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<style>
+    .card {
+        margin: 1rem;
+    }
+    .card .card-image {
+        height: 90px;
+    }
+</style>
 <body>
     <nav class="nav-extended">
         <div class="nav-wrapper">

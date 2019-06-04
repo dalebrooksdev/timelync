@@ -10,13 +10,12 @@
 @section('mainContent')
 @parent
 <div>
-    <h4>Projects</h4>
-    <div class="flex justify-stretch">
+    <h4 class="m-4">Projects</h4>
+    <div class="flex flex-wrap justify-center">
         @foreach ($userProjects as $project)
-        <div class="card m-4 w-full">
-            <div class="card-image">
-                <img src="https://picsum.photos/200">
-                <span class="card-title bg-black">{{ $project->title }}</span>
+        <div class="card w-full md:w-1/4">
+            <div class="card-image h-80 bg-black">
+                <span class="card-title">{{ $project->title }}</span>
                 <a href="/projects/{{$project->id}}" class="btn-floating halfway-fab waves-effect waves-light red btn-large"><i
                         class="material-icons">remove_red_eye</i></a>
             </div>

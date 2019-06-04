@@ -103,7 +103,6 @@
 <span class="nav-title ml-4">{{$userProject->title}}</span>
 <ul class="tabs tabs-transparent" id="projectTabs">
     <li class="tab"><a href="#timeTracker">Time Tracker</a></li>
-    <li class="tab disabled"><a href="#timeTracker2">Invoice</a></li>
     <li class="tab"><a href="#projectSettings">Settings</a></li>
 
 </ul>
@@ -111,10 +110,24 @@
 @stop
 @section('mainContent')
 @parent
-
+ @if ($errors->any())
+                  <div class="row m-4 justify-center">
+                    <div class="col s6">
+                      <div class="card-panel red">
+                        <span class="white-text">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                @endif
 
 <div id="timeTracker" class="col s12">
+   
     <div class="row p-4">
+
         <div class="col s12 m6">
             @if($inProgressTask)
             <div class="card">
@@ -172,19 +185,7 @@
                 <div class="card-content">
                     <span class="card-title">Enter a manual task</span>
                     <div class="row mb-0">
-                        @if ($errors->any())
-                  <div class="row">
-                    <div class="col s12">
-                      <div class="card-panel red">
-                        <span class="white-text">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                @endif
+                       
                         <form id="createManualTaskForm" class="col s12" action="/timestamps" method="POST">
                             @csrf
                             <div class="input-field col s12">
@@ -245,10 +246,8 @@
                                     <i class="material-icons right">delete</i></button>
                                 </span>
                                 
-                                <p>{{$timestamp->description}}</p>
-                                <p><b>Start Time:</b> {{$timestamp->start_time}} </p>
-                                <p><b>End Time:</b> {{$timestamp->end_time}} </p>
-
+                                <p class="pb-4">{{$timestamp->description}}</p>
+                                <p><b>Duration:</b> {{$timestamp->getDuration($timestamp->id)}} </p>
                             </div>
                         </div>
                         <div class="timeline-badge blue white-text"><i class="material-icons">assignment</i></div>

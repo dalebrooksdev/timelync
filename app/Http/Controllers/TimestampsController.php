@@ -51,13 +51,13 @@ class TimestampsController extends Controller
         
         $timestamp->save();
 
-        return redirect()->route('dashboard');
+        return redirect()->back();
     }
 
     public function destroy(Request $request)
     {
         $timestamp = Timestamp::find($request->timestamp_to_delete);
         $timestamp->delete();
-        return redirect()->route('dashboard');
+        return redirect()->back();
     }
 }
