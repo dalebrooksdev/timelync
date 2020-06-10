@@ -1,7 +1,5 @@
 # Timelync
 
-[Timelync.com](https://www.timelync.com)
-
 Timelync is a Freelance management application used to track projects and billable hours.
 
 ## Screenshots
